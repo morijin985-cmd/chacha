@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Favorite Person</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button class="music-player" id="musicPlayer" onclick="toggleMusic()" title="Toggle background music" aria-label="Play/Pause background music">
+    🎵
+    <div class="music-player-tooltip">This Town - Niall Horan</div>
+  </button>
+  <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top of page">↑</button>
+
+  <!-- Hidden audio element for playing songs -->
+  <audio id="audioPlayer" preload="auto"></audio>
+
+  <div id="passwordScreen">
+    <div class="password-container">
+      <h2 class="password-title"> This is something I made just for you </h2>
+      <p class="password-subtitle">Try to guess bago mo pindutin yung hint </p>
+      
+      <div class="password-input-group">
+        <input 
+          type="password" 
+          id="passwordInput" 
+          class="password-input" 
+          placeholder="Enter the password..." 
+          onkeypress="handlePasswordKeypress(event)"
+          aria-label="Password input"
+        >
+        <button class="password-button" onclick="checkPassword()" aria-label="Submit password">Enter</button>
+      </div>
+
+      <div id="wrongPasswordMessage"></div>
+      
+      <button class="hint-button" id="hintButton" onclick="showPasswordHint()" aria-label="Get password hint">Need a hint? </button>
+      <div id="hintDisplay"></div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-button active" data-section="home" aria-label="Go to home section">💕 Home</button>
+    <button class="nav-button" data-section="photos" aria-label="Go to photos section">📸 Photos</button>
+    <button class="nav-button" data-section="flowers" aria-label="Go to flowers section">🏵️ Flowers</button>
+    <button class="nav-button" data-section="songs" aria-label="Go to songs section">🎵 Songs</button>
+  </div>
+
+  <!-- Home Section -->
+  <div id="home" class="section active">
+    <div class="container">
+      <h1>To the girl who always makes me happy </h1>
+      <p class="subtitle">Click the heart below to see why you mean everything to me:</p>
+      
+      <div class="heart-container">
+        <div class="heart" onclick="showMessage(event)" role="button" tabindex="0" aria-label="Click the heart to reveal reasons" onkeydown="handleHeartKeydown(event)">❤️</div>
+      </div>
+
+      <div id="message">
+        <div class="reason">
+          <span class="reason-number">1</span>
+          You don't limit me in what I want to do.
+        </div>
+        <div class="reason">
+          <span class="reason-number">2</span>
+          You make me want to give my best version of myself. 
+        </div>
+        <div class="reason">
+          <span class="reason-number">3</span>
+          You make me realize how rare it is to find someone like you.
+            </div>
+        <div class="reason">
+          <span class="reason-number">4</span>
+          You made me want to put effort into you by doing things just to make you happy.
+            </div>
+        <div class="reason">
+          <span class="reason-number">5</span>
+          You make me feel accepted for who I was even my past I thought no one would stay for.
+        </div>
+      </div>
+
+      <div id="clickCounter"></div>
+      <div id="secretMessage" class="secret-message">
+        <div class="secret-card">
+           One more reason...<br><br>
+          Because you're you.<br><br>
+          Out of everyone I could have met, every path I could have taken, I'm grateful it led me to you. 
+          <br><br>Thank you baby for giving me a chance.
+        </div>
+      </div>
+
+      <p class="hint"> Baby try clicking the heart 20 times! </p>
+    </div>
+  </div>
+
+  <!-- Photo Gallery Section -->
+  <div id="photos" class="section">
+    <div class="container">
+      <h2>✨ Celestial ✨</h2>
+      <p class="subtitle">You're as special as the stars in the sky.</p>
+      
+      <div class="photo-gallery-wrapper">
+        <!-- Grid View of all photos -->
+        <div class="photo-grid" id="photoGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for full-screen viewing -->
+  <div id="photoModal" class="modal" onclick="closePhotoModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-modal" onclick="closePhotoModal()" aria-label="Close photo viewer">×</button>
+      <img id="modalImage" class="modal-image" src="" alt="Full view">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <!-- Flowers Section -->
+  <div id="flowers" class="section">
+    <div class="container">
+      <h2>💐 Flowers I Think You'll Love 💐</h2>
+      <p class="subtitle">I picked these baby because they feel as beautiful as you.</p>
+      
+      <div class="flower-gallery">
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌹</div>
+          <div class="flower-name">Rose</div>
+          <div class="flower-meaning">I love you</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌺</div>
+          <div class="flower-name">Hibiscus</div>
+          <div class="flower-meaning">Je t'aime</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌻</div>
+          <div class="flower-name">Sunflower</div>
+          <div class="flower-meaning">Te iubesc</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌷</div>
+          <div class="flower-name">Tulip</div>
+          <div class="flower-meaning">Eu te amo</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🪻</div>
+          <div class="flower-name">Hyacinth</div>
+          <div class="flower-meaning">Ich liebe dich</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌸</div>
+          <div class="flower-name">Cherry Blossom</div>
+          <div class="flower-meaning">Seni seviyorum</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🌼</div>
+          <div class="flower-name">Daisy</div>
+          <div class="flower-meaning">Ik hou van jou</div>
+        </div>
+
+        <div class="flower-card" tabindex="0">
+          <div class="flower-emoji">🪷</div>
+          <div class="flower-name">Lotus Flower</div>
+          <div class="flower-meaning">Jeg elsker deg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Songs Section -->
+  <div id="songs" class="section">
+    <div class="container">
+      <h2>🎵 Songs That Remind Me of You 🎵</h2>
+      <p class="subtitle">These songs capture the feelings I have for you.</p>
+      
+      <div class="songs-container">
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">Paninindigan Kita</div>
+          <div class="song-artist">Ben & Ben</div>
+          <div class="song-reason">Because I won't give up on you or what we have.</div>
+          <div class="song-note">💭 "Paninindigan kita"</div>
+        </div>
+
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">Aphrodite</div>
+          <div class="song-artist">The Ridleys</div>
+          <div class="song-reason">Because you feel so beautiful that I get lost just thinking about you.</div>
+          <div class="song-note">💭 "I swear to Zeus, you're Aphrodite in disguise"</div>
+        </div>
+
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">An Art Gallery Could Never Be As Unique As You</div>
+          <div class="song-artist">MRLD</div>
+          <div class="song-reason">Because you feel like a masterpiece I'll always admire.</div>
+          <div class="song-note">💭 "And you're my favorite sight to see"</div>
+        </div>
+
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">Moonlight in Heaven</div>
+          <div class="song-artist">Bullet & Frames</div>
+          <div class="song-reason">Because I still can't believe someone like you chose to stay with me.</div>
+          <div class="song-note">💭 "I fell in love with the divine, and I can't believe that she's all mine"</div>
+        </div>
+
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">Star Song</div>
+          <div class="song-artist">Rob Deniel</div>
+          <div class="song-reason">Because in a world full of distractions, my heart still chooses to focus only on you.</div>
+          <div class="song-note">💭 "At kahit kailan, ikaw lang ang gustong pagmasdan"</div>
+        </div>
+
+        <div class="song-card">
+          <div style="font-size: 30px; margin-bottom: 10px;">🎶</div>
+          <div class="song-title">Balisong</div>
+          <div class="song-artist">Rico Blanco</div>
+          <div class="song-reason">Because you became everything I never knew I needed.</div>
+          <div class="song-note">💭 "You're everything I wanted and more"</div>
+        </div>
+      </div>
+
+      <div class="music-info">
+        🎵 Now playing: "This Town" by Niall Horan - Click the music button in the top right to play! 
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
